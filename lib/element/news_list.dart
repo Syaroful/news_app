@@ -39,6 +39,8 @@ class _HomePageState extends State<NewsList> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
               itemBuilder: (context, index) => const NewsCardSkeleton(),
               itemCount: 8,
             );
@@ -55,11 +57,13 @@ class _HomePageState extends State<NewsList> {
 
   Widget buildNews(List<Results> newses) {
     return ListView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: newses.length,
       itemBuilder: (context, index) {
         final news = newses[index];
         return GestureDetector(
-          onTap: () => _launchUrl(news.link!),
+          onTap: () => _launchUrl(news.link ?? ''),
           child: Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.all(16),
@@ -84,7 +88,7 @@ class _HomePageState extends State<NewsList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        news.title!,
+                        news.title ?? 'No title available',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
@@ -94,7 +98,7 @@ class _HomePageState extends State<NewsList> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        news.description!,
+                        news.description ?? 'No description available',
                         style: const TextStyle(
                             fontSize: 10,
                             color: Colors.grey,
@@ -106,7 +110,7 @@ class _HomePageState extends State<NewsList> {
                       Row(
                         children: [
                           Text(
-                            news.sourceName!,
+                            news.sourceName ?? 'Unknown source',
                             style: TextStyle(
                                 fontSize: 10,
                                 color: Colors.grey[600],
@@ -120,7 +124,9 @@ class _HomePageState extends State<NewsList> {
                                 fontWeight: FontWeight.w400),
                           ),
                           Text(
-                            formatDateIndonesian(news.pubDate!),
+                            news.pubDate != null
+                                ? formatDateIndonesian(news.pubDate!)
+                                : 'Unknown date',
                             style: TextStyle(
                                 fontSize: 10,
                                 color: Colors.grey[600],

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/Utils/date_formater.dart';
 import 'package:news_app/model/news.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class PopulerNewsSlider extends StatefulWidget {
   const PopulerNewsSlider({super.key});
@@ -19,10 +20,17 @@ class _PopulerNewsSliderState extends State<PopulerNewsSlider> {
 
   static Future<News> getNews() async {
     var url = Uri.parse(
-        'https://newsdata.io/api/1/news?apikey=pub_45631745044b656feaf52d60fd622d1cc2df1&q=gizi&country=id&language=id&category=top');
+        'https://newsdata.io/api/1/news?apikey=pub_45631745044b656feaf52d60fd622d1cc2df1&language=en&category=domestic,politics,sports,technology');
     final response = await http.get(url);
     final Map<String, dynamic> json = jsonDecode(response.body);
     return News.fromJson(json);
+  }
+
+  _launchUrl(String link) async {
+    final Uri url = Uri.parse(link);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 
   @override
@@ -64,7 +72,8 @@ class _PopulerNewsSliderState extends State<PopulerNewsSlider> {
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: NetworkImage(news.imageUrl!),
+                  image: NetworkImage(news.imageUrl ??
+                      "https://www.quipper.com/id/blog/wp-content/uploads/2023/01/hands-holding-earth-csr-business-campaign.webp"),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -119,7 +128,9 @@ class _PopulerNewsSliderState extends State<PopulerNewsSlider> {
                             ),
                             const Spacer(),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                _launchUrl(news.link ?? "");
+                              },
                               icon: Image.asset(
                                 "assets/images/ic_send.png",
                                 width: 24,
