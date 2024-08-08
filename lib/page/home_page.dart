@@ -70,9 +70,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 const PopulerNewsSlider(),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: const Text(
                     "Rekomendasi Untuk Anda",
                     style: TextStyle(
@@ -81,7 +81,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 8),
                 const NewsList(),
               ],
             ),

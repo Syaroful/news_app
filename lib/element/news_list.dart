@@ -33,25 +33,23 @@ class _HomePageState extends State<NewsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder<News>(
-        future: newsFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) => const NewsCardSkeleton(),
-              itemCount: 8,
-            );
-          } else if (snapshot.hasData) {
-            final newses = snapshot.data!;
-            return buildNews(newses.results!);
-          } else {
-            return const Text('Error');
-          }
-        },
-      ),
+    return FutureBuilder<News>(
+      future: newsFuture,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) => const NewsCardSkeleton(),
+            itemCount: 8,
+          );
+        } else if (snapshot.hasData) {
+          final newses = snapshot.data!;
+          return buildNews(newses.results!);
+        } else {
+          return const Text('Error');
+        }
+      },
     );
   }
 
@@ -66,7 +64,7 @@ class _HomePageState extends State<NewsList> {
           onTap: () => _launchUrl(news.link ?? ''),
           child: Container(
             width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.all(16),
+            margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -154,7 +152,7 @@ class NewsCardSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       child: const Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

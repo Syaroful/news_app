@@ -149,6 +149,7 @@ class _PopulerNewsSliderState extends State<PopulerNewsSlider> {
           .toList(),
       options: CarouselOptions(
         height: 300.0,
+        viewportFraction: 1,
       ),
     );
   }
