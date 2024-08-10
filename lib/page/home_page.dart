@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/element/news_list.dart';
-import 'package:news_app/element/populer_news_slider.dart';
+import 'package:news_app/widget/news_list.dart';
+import 'package:news_app/widget/populer_news_slider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          padding: const EdgeInsets.fromLTRB(8, 48, 8, 8),
+          padding: const EdgeInsets.fromLTRB(16, 48, 16, 0),
           child: Row(
             children: [
               const CircleAvatar(
@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(16),
                   child: const Text(
                     "Berita Internasional",
                     style: TextStyle(
@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
                 const PopulerNewsSlider(),
                 const SizedBox(height: 16),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: const Text(
                     "Rekomendasi Untuk Anda",
                     style: TextStyle(
@@ -81,7 +81,10 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const NewsList(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  child: NewsList(),
+                ),
               ],
             ),
           ),

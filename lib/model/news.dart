@@ -1,74 +1,87 @@
 class News {
-  String? status;
-  int? totalResults;
-  List<Results>? results;
+  bool? success;
+  String? message;
+  Data? data;
 
-  News({this.status, this.totalResults, this.results});
+  News({this.success, this.message, this.data});
 
   News.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    totalResults = json['totalResults'];
-    if (json['results'] != null) {
-      results = <Results>[];
-      json['results'].forEach((v) {
-        results!.add(Results.fromJson(v));
+    success = json['success'];
+    message = json['message'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    data['message'] = message;
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    return data;
+  }
+}
+
+class Data {
+  String? link;
+  String? description;
+  String? title;
+  String? image;
+  List<Posts>? posts;
+
+  Data({this.link, this.description, this.title, this.image, this.posts});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    link = json['link'];
+    description = json['description'];
+    title = json['title'];
+    image = json['image'];
+    if (json['posts'] != null) {
+      posts = <Posts>[];
+      json['posts'].forEach((v) {
+        posts!.add(Posts.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['status'] = status;
-    data['totalResults'] = totalResults;
-    if (results != null) {
-      data['results'] = results!.map((v) => v.toJson()).toList();
+    data['link'] = link;
+    data['description'] = description;
+    data['title'] = title;
+    data['image'] = image;
+    if (posts != null) {
+      data['posts'] = posts!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Results {
-  String? articleId;
-  String? title;
+class Posts {
   String? link;
-  String? description;
+  String? title;
   String? pubDate;
-  String? imageUrl;
-  String? sourceName;
-  List<String>? category;
+  String? description;
+  String? thumbnail;
 
-  Results({
-    this.articleId,
-    this.title,
-    this.link,
-    this.description,
-    this.pubDate,
-    this.imageUrl,
-    this.sourceName,
-    this.category,
-  });
+  Posts(
+      {this.link, this.title, this.pubDate, this.description, this.thumbnail});
 
-  Results.fromJson(Map<String, dynamic> json) {
-    articleId = json['article_id'];
-    title = json['title'];
+  Posts.fromJson(Map<String, dynamic> json) {
     link = json['link'];
-    description = json['description'];
+    title = json['title'];
     pubDate = json['pubDate'];
-    imageUrl = json['image_url'];
-    sourceName = json['source_name'];
-    category = json['category'].cast<String>();
+    description = json['description'];
+    thumbnail = json['thumbnail'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['article_id'] = articleId;
-    data['title'] = title;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['link'] = link;
-    data['description'] = description;
+    data['title'] = title;
     data['pubDate'] = pubDate;
-    data['image_url'] = imageUrl;
-    data['source_name'] = sourceName;
-    data['category'] = category;
+    data['description'] = description;
+    data['thumbnail'] = thumbnail;
     return data;
   }
 }

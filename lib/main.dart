@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:news_app/page/bookmark_page.dart';
 import 'package:news_app/page/explore_page.dart';
 import 'package:news_app/page/home_page.dart';
 import 'package:news_app/page/profile_page.dart';
@@ -18,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        scaffoldBackgroundColor: Colors.indigo.shade50,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey.shade900),
         useMaterial3: true,
       ),
@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _widgetOptions = [
     HomePage(),
     ExplorePage(),
-    BookmarkPage(),
     ProfilePage(),
   ];
 
@@ -64,8 +63,6 @@ class _MyHomePageState extends State<MyHomePage> {
               "assets/images/ic_home_active.png", "Home"),
           bottomNavBarItem("assets/images/ic_search.png",
               "assets/images/ic_search_active.png", "Explore"),
-          bottomNavBarItem("assets/images/ic_bookmark.png",
-              "assets/images/ic_bookmark_active.png", "Bookmark"),
           bottomNavBarItem("assets/images/ic_profile.png",
               "assets/images/ic_profile_active.png", "Profile"),
         ],
@@ -87,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
         activeIcon: Image.asset(
           activeIcon,
           width: 24,
-          color: Colors.grey[900],
+          color: Colors.indigo,
         ),
         label: label);
   }
